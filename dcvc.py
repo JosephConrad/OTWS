@@ -25,6 +25,7 @@ def main():
     for s in S:
         print '\nProcessing {0}-element subsets...'.format(s)
 
+        # number of subsets of size s
         Ns = subsets.subsetSize(s)
         if Ns >= n:
             myShare = subsets.subsetSize(s)/n
