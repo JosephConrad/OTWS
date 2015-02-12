@@ -5,6 +5,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Latex gitignore
+*.aux
+*.out
+*.synctex.gz
+
 # Distribution / packaging
 .Python
 env/
