@@ -117,88 +117,63 @@ Celem zadania jest znalezienie algorytmu na znalezienia wartości 	:
 \begin{equation}
 contribution(\alpha_i, VBS(A))
 \end{equation}
-
 Zgodnie ze wzorem jest rowne:
 \begin{equation}
 contribution(\alpha_i, VBS(A)) =  \phi_i((A,v))
 \end{equation}
-
 Przypomnijmy, że zgodnie
  z definicja z zadania
  wartość shapleya 
  dla gracza $\alpha_i \in A$ wynosi 
  \begin{equation}
  \phi_i((A,v)) = \frac{1}{n!}\sum_{} \Delta_{\pi}^G (\alpha_i)
- \end{equation}
- 
+ \end{equation} 
  czyli gdy podstawimy do wzour zamiast $v$ $performance$ otrzymamy:
   \begin{equation}
  \phi_i((A,v)) = \frac{1}{n!}\sum_{} \Delta_{\pi}^G (\alpha_i)
- \end{equation}
- 
-Co mozna rozpisac rowniez w nastepujacy sposob :
+ \end{equation} 
+Co można rozpisać również w następujący sposób :
   \begin{equation}
  \phi_i((A,v)) = \frac{1}{n!}\sum_{\pi \in \Pi^A} ( performance(VBS(C_i^{\pi} \cup \{a_i\})) -  performance(VBS((C_i^{\pi})) )
- \end{equation}
- 
- 
+ \end{equation}  
    \begin{equation}
  \phi_i((A,v)) =\frac{1}{n!} \frac{1}{ |X|}    \sum _{x \in X} \sum_{\pi \in \Pi^A} (   min_{a_i \in C_i^{\pi}  \cup \{a_i\}} time(a_i, x)  - min_{a_i \in C_i^{\pi}  } time(a_i, x) )
- \end{equation}
- 
- Co ten wzor oznacza? Oznacza on, ze aby otrzymac wartosc Shapleya dla algorytmu $a_i$ mozemy rozpatrywac kazde zadanie z osobna.
- Czyli teraz glownym problemem jest to jak efektywnie obliczyc przyrost efektywnosci (zbioru algorytmu) z przyjsciem algorytmu $a_i$ dla kazdej permutacji dla danego zadania, czyli jak efektywnie obliczyc ten czlon:
+ \end{equation} 
+ Co ten wzór oznacza? Oznacza on, ze aby otrzymać wartość Shapleya dla algorytmu $a_i$ możemy rozpatrywać każde zadanie z osobna.
+ Czyli teraz głównym problemem jest to jak efektywnie obliczyć przyrost efektywności (zbioru algorytmu) z przejściem algorytmu $a_i$ dla każdej permutacji dla danego zadania, czyli jak efektywnie obliczyć ten człon:
   \begin{equation}
  \sum_{\pi \in \Pi^A} (   min_{a_i \in C_i^{\pi}  \cup \{a_i\}} time(a_i, x)  - min_{a_i \in C_i^{\pi}  } time(a_i, x) )
  \end{equation} 
  
  
- W tym celu (dla danego) zadania uszeregujmy algorytmy wedlug ich wydajnosci (szybkosci dojscia do rozwiazania) np: dla zadania $x_3$ mamy nastepujaca kolejnosc:
+ W tym celu (dla danego) zadania uszeregujmy algorytmy według ich wydajności (szybkości dojścia do rozwiązania) np: dla zadania $x_3$ mamy następującą kolejność:
   $$  x_3:  a_1, a_2, a_3, a_4, a_5, a_6, a_7 $$
   
- Zauwazmy, ze jezeli algorytm $a_i$ jest najwolniejszy ze wszystkich to nie wniesie zadnego przyrosu efektywnosci do jakiegokolwiek podzbioru algorytmu.
+ Zauważmy, ze jeżeli algorytm $a_i$ jest najwolniejszy ze wszystkich to nie wniesie żadnego przyrostu efektywności do jakiegokolwiek podzbioru algorytmu.
  
- Zauwazmy, tez ze jezeli algorytm $a_i$ dochodzi do zbioru w ktorym juz jest szybszy od niego algorytmy to tez nie wniesie zadnej poprawy efektywnosci.
+ Zauważmy, tez ze jeżeli algorytm $a_i$ dochodzi do zbioru w którym już jest szybszy od niego algorytmy to tez nie wniesie żadnej poprawy efektywności.
  
- Jak zatem bedziemy obliczac wartosc Shapley dla algorytmu $a_i$ dla konkretnego zadania. Przesledzmy to na krok po kroku. Załóżmy, że $a_i$ to $a_4$ z przykładu wyżej.
+ Jak zatem będziemy obliczać wartość Shapley dla algorytmu $a_i$ dla konkretnego zadania. Prześledźmy to na krok po kroku. Załóżmy, że $a_i$ to $a_4$ z przykładu wyżej.
  
 
 Algorytm będzie wnosił przyrost efektywności tylko, gdy koalicja do której dochodzi nie zawiera szybszego algorytmu, a więc składnik wartości Shapleya będzie niezerowy dla:
 \begin{enumerate}
-\item wszystkich permutacjei w ktorych $a_5$ jest najszybszy, a tych jest (i to mnozymy razy przyrost efektywnosci pomiedzy $a_4$, a $a_5$):
-\item[•] $(2-1)! {2 \choose 2} = 2$ dla zbiorow 3-elementowych 
-\item[•] $(1-1)! {2 \choose 1} = 2$ dla zbiorow 2-elementowych 
-\item[•] $(1$ dla zbiorow 1-elementowych   
+\item wszystkich permutacji w których $a_5$ jest najszybszy, a tych jest (i to mnożymy razy przyrost efektywności pomiędzy $a_4$, a $a_5$):
+\item[•] $(3-1)! {2 \choose 2} = 2$ dla zbiorów 3-elementowych 
+\item[•] $(2-1)! {2 \choose 1} = 2$ dla zbiorów 2-elementowych 
+\item[•] $(1$ dla zbiorów 1-elementowych   
 
-\item wszystkich permutacjei w ktorych $a_6$ jest najszybszy, a tych jest (i to mnozymy razy przyrost efektywnosci pomiedzy $a_4$, a $a_6$):
-\item[•] $(1-1)!  {1 \choose 1}= 1$ dla zbiorow 2-elementowych 
-\item[•] $(1$ dla zbiorow 1-elementowych   
-\item wszystkich permutacjei w ktorych $a_7$ jest najszybszy, a tych jest(i to mnozymy razy przyrost efektywnosci pomiedzy $a_4$, a $a_6$):
-\item[•] $1$ dla zbiorow 1-elementowych   
+\item wszystkich permutacji w których $a_6$ jest najszybszy, a tych jest (i to mnożymy razy przyrost efektywności pomiędzy $a_4$, a $a_6$):
+\item[•] $(1-1)!  {1 \choose 1}= 1$ dla zbiorów 2-elementowych 
+\item[•] $(1$ dla zbiorów 1-elementowych   
+\item wszystkich permutacji w których $a_7$ jest najszybszy, a tych jest(i to mnożymy razy przyrost efektywności pomiędzy $a_4$, a $a_7$):
+\item[•] $1$ dla zbiorów 1-elementowych   
 \end{enumerate}
 
 
-Na podstawie tego mozna tego przykladu mozna zapisac szkic algorytmu:
- 
- 
+Gdy zsumujemy te wszystkie iloczyny, wystarczy to podzielić przez $n!$ oraz $|X|$, aby otrzymać wartość Shapleya dla danego algorytmu.
 
- 
-\paragraph{Algorytm} Poniżej przedstawiony został algorytm z rozwiązania:\\
-% Wzajemne wykluczanie
-\begin{lstlisting}
-
-def 
-shapley = 0
-l_x = 0; // liczba X-ow, ktora pozostala
-count_x = 0; // biezaca liczba nieuzytych X-ow
-bal = 0; // roznica miedzy nawiasami otwierajacymi i zamykajacymi
-
-for x in X: //sprawdzamy wszystkie znaki w slowie
-    p = performancePosition();
-    for algoritmh in  
-\end{lstlisting}
-
- 
+Rozwiązanie to działa w czasie wielomianowym.
  
 
 \end{document}
